@@ -1,0 +1,50 @@
+[
+  {
+    "_description": "场景 1：正常老人的健康心率（预期：全部放行，caught_by: none）",
+    "request_id": "req_norm_001",
+    "device_id": "dev_001",
+    "patient_id": "pt_001",
+    "timestamp": "2026-03-26T13:45:00Z",
+    "current_data": {
+      "metrics": {"heart_rate": 75, "spo2": 98, "systolic_bp": 120, "diastolic_bp": 80},
+      "signal_quality": 0.95,
+      "battery_level": 81
+    },
+    "history_window": [
+      {"timestamp": "2026-03-26T13:44:00Z", "heart_rate": 74, "spo2": 98},
+      {"timestamp": "2026-03-26T13:43:00Z", "heart_rate": 76, "spo2": 97}
+    ]
+  },
+  {
+    "_description": "场景 2：离谱的暴力投毒（预期：被前置规则秒杀拦截，caught_by: pre_filter）",
+    "request_id": "req_atk_002",
+    "device_id": "dev_001",
+    "patient_id": "pt_001",
+    "timestamp": "2026-03-26T13:46:00Z",
+    "current_data": {
+      "metrics": {"heart_rate": 280, "spo2": 15, "systolic_bp": 250, "diastolic_bp": 20},
+      "signal_quality": 0.99,
+      "battery_level": 81
+    },
+    "history_window": [
+      {"timestamp": "2026-03-26T13:45:00Z", "heart_rate": 75, "spo2": 98},
+      {"timestamp": "2026-03-26T13:44:00Z", "heart_rate": 74, "spo2": 98}
+    ]
+  },
+  {
+    "_description": "场景 3：极其隐蔽的高级投毒（预期：规则放行，但被LLM识破，caught_by: llm_agent）",
+    "request_id": "req_sneaky_003",
+    "device_id": "dev_001",
+    "patient_id": "pt_001",
+    "timestamp": "2026-03-26T13:47:00Z",
+    "current_data": {
+      "metrics": {"heart_rate": 185, "spo2": 99, "systolic_bp": 125, "diastolic_bp": 82},
+      "signal_quality": 0.98,
+      "battery_level": 81
+    },
+    "history_window": [
+      {"timestamp": "2026-03-26T13:46:00Z", "heart_rate": 72, "spo2": 98},
+      {"timestamp": "2026-03-26T13:45:00Z", "heart_rate": 70, "spo2": 99}
+    ]
+  }
+]
