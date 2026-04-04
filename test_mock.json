@@ -1,6 +1,6 @@
 [
   {
-    "_description": "场景 1：正常老人的健康心率（预期：全部放行，caught_by: none）",
+    "_description": "Scenario 1: Normal heart rate for an elderly person (Expected: all allowed through, caught_by: none)",
     "request_id": "req_norm_001",
     "device_id": "dev_001",
     "patient_id": "pt_001",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "_description": "场景 2：离谱的暴力投毒（预期：被前置规则秒杀拦截，caught_by: pre_filter）",
+    "_description": "Scenario 2: Outrageous malicious injection (Expected: Intercepted by the pre-filter, caught_by: pre_filter)",
     "request_id": "req_atk_002",
     "device_id": "dev_001",
     "patient_id": "pt_001",
@@ -32,7 +32,7 @@
     ]
   },
   {
-    "_description": "场景 3：极其隐蔽的高级投毒（预期：规则放行，但被LLM识破，caught_by: llm_agent）",
+    "_description": "Scenario 3: Highly covert advanced poisoning (Expected outcome: the system allows it through, but it is detected by the LLM; caught_by: llm_agent)",
     "request_id": "req_sneaky_003",
     "device_id": "dev_001",
     "patient_id": "pt_001",
