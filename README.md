@@ -52,6 +52,7 @@ decision_result = gateway.evaluate_telemetry(payload)
 
 ### 4.2 输入 Payload 契约 (Input Schema)
 传入的 payload 必须是一个合法的 Python 字典，并由调用方（如 FastAPI 节点）提前拼装好历史滑动窗口：
+```python
 {
   "request_id": "req_001",
   "device_id": "dev_001",
@@ -64,9 +65,10 @@ decision_result = gateway.evaluate_telemetry(payload)
     {"heart_rate": 74, "spo2": 98}
   ]
 }
-
+```
 ### 4.3 输出 Response 契约 (Output Schema)
 引擎将返回一个严格格式化的字典，指示下游系统是否应将该数据入库（Retain）或丢弃（Discard）：
+```python
 {
   "request_id": "req_001",
   "device_id": "dev_001",
@@ -78,3 +80,4 @@ decision_result = gateway.evaluate_telemetry(payload)
   "latency_ms": 0.02,
   "reasoning_log": "Blocked: Heart rate (280 BPM) violates human physiological limits."
 }
+```
