@@ -28,26 +28,15 @@ class PreFilterGateway:
         response = {
             "request_id": req_id,
             "device_id": dev_id,
-            "is_attack": False,
+            "is_poisoned": False,
             "risk_level": "low",
-            "recommended_action": "allow",
+            "recommended_action": "retain",
             "confidence_score": 0.0,
             "caught_by": "none",
             "latency_ms": 0.0,
             "reasoning_log": "Data within physiological limits. Passed to LLM for semantic analysis."
         }
 
-        response = {
-            "request_id": req_id,
-            "device_id": dev_id,
-            "is_attack": False,
-            "risk_level": "low",
-            "recommended_action": "allow",
-            "confidence_score": 0.0,
-            "caught_by": "none",
-            "latency_ms": 0.0,
-            "reasoning_log": "Data within physiological limits. Passed to LLM for semantic analysis."
-        }
 
         try:
             current_data = payload.get("current_data", {})
@@ -61,36 +50,36 @@ class PreFilterGateway:
             # Perform a fast pattern match (O(1) complexity)
             if signal_quality < self.rules["min_signal_quality"]:
                 response.update({
-                    "is_attack": True, 
+                    "is_poisoned": True, 
                     "risk_level": "high", 
-                    "recommended_action": "block",
+                    "recommended_action": "discard",
                     "confidence_score": 0.99,
                     "caught_by": "pre_filter",
                     "reasoning_log": f"Blocked: Signal quality ({signal_quality}) too low. Potential sensor noise or tampering."
                 })
             elif hr > self.rules["max_heart_rate"] or hr < self.rules["min_heart_rate"]:
                 response.update({
-                    "is_attack": True, 
+                    "is_poisoned": True, 
                     "risk_level": "high", 
-                    "recommended_action": "block",
+                    "recommended_action": "discard",
                     "confidence_score": 1.0,
                     "caught_by": "pre_filter",
                     "reasoning_log": f"Blocked: Heart rate ({hr} BPM) violates human physiological limits."
                 })
             elif spo2 < self.rules["min_spo2"]:
                 response.update({
-                    "is_attack": True, 
+                    "is_poisoned": True, 
                     "risk_level": "high", 
-                    "recommended_action": "block",
+                    "recommended_action": "discard",
                     "confidence_score": 1.0,
                     "caught_by": "pre_filter",
                     "reasoning_log": f"Blocked: SpO2 ({spo2}%) is fatally low, likely false data injection."
                 })
             elif sys_bp > self.rules["max_systolic_bp"] or dia_bp < self.rules["min_diastolic_bp"]:
                 response.update({
-                    "is_attack": True, 
+                    "is_poisoned": True, 
                     "risk_level": "high", 
-                    "recommended_action": "block",
+                    "recommended_action": "discard",
                     "confidence_score": 1.0,
                     "caught_by": "pre_filter",
                     "reasoning_log": f"Blocked: Blood pressure ({sys_bp}/{dia_bp}) is biologically impossible."

@@ -48,11 +48,11 @@ class LlamaDefenseAgent:
         final_response = {
             "request_id": payload.get("request_id", "unknown"),
             "device_id": payload.get("device_id", "unknown"),
-            "is_attack": decision_data.get("is_attack", False),
+            "is_poisoned": decision_data.get("is_poisoned", False),
             "risk_level": decision_data.get("risk_level", "low"),
-            "recommended_action": decision_data.get("recommended_action", "allow"),
+            "recommended_action": decision_data.get("recommended_action", "retain"),
             "confidence_score": decision_data.get("confidence_score", 0.0),
-            "caught_by": "llm_agent" if decision_data.get("is_attack") else "none",
+            "caught_by": "llm_agent" if decision_data.get("recommended_action") == "discard" else "none",
             "latency_ms": latency,
             "reasoning_log": decision_data.get("reasoning_log", "")
         }

@@ -23,7 +23,7 @@ class DualLayerDefenseGateway:
 
         # Short-circuit Interception
         # If the rule engine directly classifies an input as an attack (such as a malicious injection with a heart rate of 280), it will be intercepted immediately, thereby avoiding any waste of LLM computational resources.
-        if rule_result.get("recommended_action") == "block":
+        if rule_result.get("recommended_action") == "discard":
             total_end_time = time.perf_counter()
             rule_result["latency_ms"] = round((total_end_time - total_start_time) * 1000, 4)
             return rule_result
